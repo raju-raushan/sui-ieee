@@ -4,7 +4,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Calendar, Clock, Users, MapPin } from "lucide-react";
+import { Calendar, Clock, Users, MapPin, Link } from "lucide-react";
+import Contact from "./Contact";
+import ContactFrom from "@/components/ContactFrom";
 
 export default function Events() {
   const [selectedTab, setSelectedTab] = useState("upcoming");
@@ -12,27 +14,27 @@ export default function Events() {
   const upcomingEvents = [
     {
       id: 1,
-      title: "AI and Machine Learning Workshop",
-      date: "comming soon...",
-      time: "10:00 AM - 4:00 PM",
-      location: "Computer Lab 1, Block A",
-      type: "Workshop",
+      title: "PathX Series #5: Build Career With AI",
+      date: "7th October, 2025",
+      time: "06:00 PM - 07:00 PM",
+      location: "Google Meet",
+      type: "Seminar",
       attendees: null,
       maxAttendees: null,
-      description: "Hands-on workshop covering fundamentals of AI/ML with practical implementation using Python and TensorFlow.",
+      description: "Guidance on how to work with AI, covering fundamentals of AI/ML with practical implementation using Python and TensorFlow.",
       status: "Coming Soon"
     },
     {
       id: 2,
       title: "IEEE Day Celebration 2024",
-      date: "October 7, 2025",
+      date: "Coming Soon...",
       time: "9:00 AM - 6:00 PM",
       location: "Online",
       type: "Celebration",
-      attendees: 150,
-      maxAttendees: 200,
+      attendees: null,
+      maxAttendees: null,
       description: "Annual IEEE Day celebration featuring technical presentations, poster sessions, and networking opportunities.",
-      status: "Registration Open"
+      status: "Coming Soon"
     },
     {
       id: 3,
@@ -311,9 +313,18 @@ export default function Events() {
         <Button
           size="lg"
           className="bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold px-8 py-3 rounded-full hover:opacity-90 transition-all"
+        
         >
           Subscribe to Newsletter
         </Button>
+            <Button
+                          asChild
+                          className="px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-full hover:opacity-90 hover:scale-105 transition-transform duration-300 shadow-md"
+                        >
+                          <Link to="/Contact">View All Events</Link>
+                        </Button>
+
+        
       </CardContent>
     </Card>
   </div>

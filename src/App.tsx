@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -11,10 +10,7 @@ import { AIChatbot } from "./components/AIChatbot";
 import Index from "./pages/Index";
 import About from "./pages/About";
 import Events from "./pages/Events";
-import Chapters from "./pages/Chapters";
-import News from "./pages/News";
-import Resources from "./pages/Resources";
-import Gallery from "./pages/Gallery";
+import Gallery from "./pages/ProfessionalGallery";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 
@@ -34,9 +30,7 @@ const App = () => (
                 <Route path="/" element={<Index />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/events" element={<Events />} />
-                <Route path="/chapters" element={<Chapters />} />
-                <Route path="/news" element={<News />} />
-                <Route path="/resources" element={<Resources />} />
+                {/* <Route path="/chapters" element={<Chapters />} /> */}
                 <Route path="/gallery" element={<Gallery />} />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="*" element={<NotFound />} />

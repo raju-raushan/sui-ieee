@@ -29,7 +29,7 @@ export function Footer() {
           <div>
             <h4 className="font-semibold text-lg text-white mb-4">Quick Links</h4>
             <ul className="space-y-2 text-sm">
-              {["About", "Events", "Chapters", "Resources"].map((link, idx) => (
+              {["About", "Events", "Resources"].map((link, idx) => (
                 <li key={idx}>
                   <Link
                     to={`/${link.toLowerCase().replace(/\s/g, "")}`}
@@ -67,7 +67,7 @@ export function Footer() {
             <div className="space-y-3 text-sm">
               <div className="flex items-center space-x-3">
                 <Mail className="h-4 w-4 text-blue-500" />
-                <span className="text-gray-400">ieee@sageuniversity.edu.in</span>
+                <span className="text-gray-400">sui.ieee@sageuniversity.in</span>
               </div>
               <div className="flex items-center space-x-3">
                 <Calendar className="h-4 w-4 text-blue-500" />
