@@ -1,73 +1,84 @@
-# Welcome to your Lovable project
+# IEEE Student Branch – SAGE University Indore
 
-## Project info
+A modern React + TypeScript single-page application built with Vite and Tailwind CSS. The site showcases the IEEE Student Branch at SAGE University Indore, including events, chapters, gallery, and contact information.
 
-**URL**: https://lovable.dev/projects/96755631-cdc9-4744-b081-672e97ce95e2
+## Tech Stack
 
-## How can I edit this code?
+- React 18 (TypeScript)
+- Vite 5
+- Tailwind CSS 3
+- shadcn/ui (Radix UI primitives)
+- React Router v6
+- TanStack Query (optional, used where applicable)
 
-There are several ways of editing your application.
+## Getting Started
 
-**Use Lovable**
+### Prerequisites
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/96755631-cdc9-4744-b081-672e97ce95e2) and start prompting.
+- Node.js 18+ and npm
 
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
+### Installation
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+git clone <REPO_URL>
+cd <PROJECT_DIRECTORY>
+npm install
+```
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+### Development
 
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+```sh
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+The app runs on http://localhost:8080 by default (configured in `vite.config.ts`).
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+### Production Build
 
-**Use GitHub Codespaces**
+```sh
+npm run build
+npm run preview
+```
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## Project Structure
 
-## What technologies are used for this project?
+- `src/` – application source
+  - `components/` – reusable UI components (including `ui/` from shadcn)
+  - `pages/` – route-level pages (`Index`, `About`, `Events`, etc.)
+  - `hooks/`, `lib/` – utilities and custom hooks
+  - `main.tsx` – app bootstrap
+- `public/` – static assets (images, icons)
 
-This project is built with:
+## Available Scripts
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+- `npm run dev` – start the dev server
+- `npm run build` – build for production
+- `npm run preview` – preview the production build locally
+- `npm run lint` – run ESLint
 
-## How can I deploy this project?
+## Styling & UI
 
-Simply open [Lovable](https://lovable.dev/projects/96755631-cdc9-4744-b081-672e97ce95e2) and click on Share -> Publish.
+- Tailwind CSS is configured in `tailwind.config.ts` and `postcss.config.js`.
+- shadcn/ui components live under `src/components/ui` and use Radix primitives.
 
-## Can I connect a custom domain to my Lovable project?
+## Routing
 
-Yes, you can!
+Client-side routing is handled by `react-router-dom`. Check `src/pages` for existing routes and `src/components/Navigation.tsx` for navigation.
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+## Deployment
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+This is a static SPA build output (`dist/`). You can deploy to any static host:
+
+- Vercel – drag-and-drop or connect repo
+- Netlify – connect repo or use CLI
+- GitHub Pages – serve `dist/` via actions or manual upload
+
+## Contributing
+
+1. Create a feature branch
+2. Commit with clear messages
+3. Open a pull request
+
+## License
+
+This project’s license can be added here (e.g., MIT). If no license is specified, all rights reserved by default.

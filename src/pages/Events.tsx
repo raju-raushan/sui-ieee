@@ -1,15 +1,15 @@
 
-import { useState } from "react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Calendar, Clock, Users, MapPin, Link } from "lucide-react";
-import Contact from "./Contact";
-import ContactFrom from "@/components/ContactFrom";
+import { Calendar, Clock, MapPin, Users } from "lucide-react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Events() {
   const [selectedTab, setSelectedTab] = useState("upcoming");
+  const navigate = useNavigate();
 
   const upcomingEvents = [
     {
@@ -313,18 +313,10 @@ export default function Events() {
         <Button
           size="lg"
           className="bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold px-8 py-3 rounded-full hover:opacity-90 transition-all"
-        
+          onClick={() => navigate('/contact')}
         >
           Subscribe to Newsletter
         </Button>
-            <Button
-                          asChild
-                          className="px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-full hover:opacity-90 hover:scale-105 transition-transform duration-300 shadow-md"
-                        >
-                          <Link to="/Contact">View All Events</Link>
-                        </Button>
-
-        
       </CardContent>
     </Card>
   </div>

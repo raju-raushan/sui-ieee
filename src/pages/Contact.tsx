@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -7,12 +8,14 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { MapPin } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+import { useState } from "react";
 
 export default function Contact() {
+  const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   return (
     <div className="min-h-screen py-12 bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-950 transition-colors duration-300">
       <div className="container mx-auto px-4">
@@ -41,13 +44,16 @@ export default function Contact() {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="bg-gray-100 dark:bg-gray-900 h-64 rounded-lg flex items-center justify-center border border-gray-200 dark:border-gray-700">
-                  <div className="text-center text-gray-600 dark:text-gray-400">
-                    <MapPin className="h-12 w-12 mx-auto mb-2 text-blue-600 dark:text-blue-400" />
-                    <p>Interactive Map</p>
-                    <p className="text-sm">SAGE University Indore</p>
-                    <p className="text-sm">Kailod Kartal, Indore, MP 452020</p>
-                  </div>
+                <div className="bg-gray-100 dark:bg-gray-900 h-64 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700">
+                  <iframe
+                    title="SAGE University Indore Location"
+                    src="https://www.google.com/maps?q=SAGE%20University%20Indore&hl=en&z=15&output=embed"
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0 }}
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                  />
                 </div>
               </CardContent>
             </Card>
@@ -123,7 +129,39 @@ export default function Contact() {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <form className="space-y-6">
+                <form
+                  className="space-y-6"
+                  onSubmit={async (e) => {
+                    e.preventDefault();
+                    if (isSubmitting) return;
+                    const form = e.currentTarget as HTMLFormElement;
+                    const formData = new FormData(form);
+                    const payload = {
+                      firstName: String(formData.get("firstName") || ""),
+                      lastName: String(formData.get("lastName") || ""),
+                      email: String(formData.get("email") || ""),
+                      studentId: String(formData.get("studentId") || ""),
+                      subject: String(formData.get("subject") || ""),
+                      message: String(formData.get("message") || ""),
+                      consent: formData.get("consent") === "on",
+                    };
+                    try {
+                      setIsSubmitting(true);
+                      const res = await fetch("/api/contact", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(payload),
+                      });
+                      if (!res.ok) throw new Error("Request failed");
+                      toast({ title: "Message sent", description: "We'll get back to you soon." });
+                      form.reset();
+                    } catch (err) {
+                      toast({ title: "Failed to send", description: "Please try again later.", variant: "destructive" });
+                    } finally {
+                      setIsSubmitting(false);
+                    }
+                  }}
+                >
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <label
@@ -135,6 +173,7 @@ export default function Contact() {
                       <Input
                         type="text"
                         id="firstName"
+                        name="firstName"
                         placeholder="Your first name"
                         required
                         className="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-700"
@@ -150,6 +189,7 @@ export default function Contact() {
                       <Input
                         type="text"
                         id="lastName"
+                        name="lastName"
                         placeholder="Your last name"
                         required
                         className="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-700"
@@ -167,6 +207,7 @@ export default function Contact() {
                     <Input
                       type="email"
                       id="email"
+                      name="email"
                       placeholder="your.email@example.com"
                       required
                       className="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-700"
@@ -183,6 +224,7 @@ export default function Contact() {
                     <Input
                       type="text"
                       id="studentId"
+                      name="studentId"
                       placeholder="Your student ID"
                       className="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-700"
                     />
@@ -197,6 +239,7 @@ export default function Contact() {
                     </label>
                     <select
                       id="subject"
+                      name="subject"
                       className="w-full px-3 py-2 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 border border-gray-300 dark:border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                       required
                     >
@@ -219,6 +262,7 @@ export default function Contact() {
                     </label>
                     <Textarea
                       id="message"
+                      name="message"
                       rows={5}
                       placeholder="Please provide details about your inquiry..."
                       required
@@ -230,6 +274,7 @@ export default function Contact() {
                     <input
                       type="checkbox"
                       id="consent"
+                      name="consent"
                       className="mt-1 accent-blue-600 dark:accent-blue-500"
                       required
                     />
@@ -246,8 +291,9 @@ export default function Contact() {
                     type="submit"
                     className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold hover:opacity-90 transition-all"
                     size="lg"
+                    disabled={isSubmitting}
                   >
-                    Send Message
+                    {isSubmitting ? "Sending..." : "Send Message"}
                   </Button>
                 </form>
               </CardContent>
